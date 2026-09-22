@@ -1,0 +1,488 @@
+BCSO-BOT — NAJPROSTSZA INSTRUKCJA
+
+1. Rozpakuj wszystkie pliki do folderu BCSO-BOT na Pulpicie.
+2. Wejdz na Discord Developer Portal -> Twoja aplikacja -> Bot.
+3. Kliknij "Zresetuj token" (Reset Token), skopiuj NOWY token.
+   NIGDY nie wysylaj tokenu innej osobie.
+4. Otworz plik .env w Notatniku.
+5. Zmien:
+   DISCORD_TOKEN=WKLEJ_TUTAJ_TOKEN
+   na:
+   DISCORD_TOKEN=twoj_token
+6. Zapisz plik .env.
+7. Kliknij dwa razy START.bat.
+8. Przy pierwszym uruchomieniu instalacja bibliotek moze chwile potrwac.
+9. Gdy konsola wyswietli "Zalogowano jako...", bot powinien byc online.
+10. Na Discordzie wpisz "/" i sprawdz komendy.
+
+KOMENDY:
+ /pochwala osoba powod   (+1)
+ /minus osoba powod      (-1)
+ /nagana osoba powod     (-2)
+ /lota osoba powod
+ /blacklista osoba powod
+ /awans osoba rola powod
+ /degrad osoba rola powod
+ /profil osoba
+ /historia osoba
+ /szkolenie nadaj osoba rola powod
+ /szkolenie odbierz osoba rola powod
+
+BAZA:
+ Plik bcso.db utworzy sie automatycznie przy pierwszym uruchomieniu.
+
+UWAGA O ROLACH:
+ Aby /awans i /degrad mogly zmieniac role, rola bota musi znajdowac sie
+ WYZEJ na liscie rol serwera niz role, ktorymi bot ma zarzadzac.
+
+BEZPIECZENSTWO:
+ .env zawiera sekret. Nie wysylaj go nikomu i nie publikuj.
+
+
+WERSJA v3:
+- bot zawsze czyta plik .env znajdujacy sie obok bot.py,
+  wiec nie powinien juz gubic tokenu przez zly folder uruchomienia.
+
+
+AUTOMATYCZNE AWANSE v4
+======================
+Najpierw ustaw kolejnosc rang na Discordzie, np.:
+ /rangi dodaj @Corporal 1 pozycja:1
+ /rangi dodaj @Corporal 2 pozycja:2
+ /rangi dodaj @Sergeant 1 pozycja:3
+ /rangi dodaj @Sergeant 2 pozycja:4
+
+Potem:
+ /awans @Osoba ile:1
+ zmieni Corporal 1 -> Corporal 2
+
+ /awans @Osoba ile:3
+ zmieni Corporal 1 -> Sergeant 2
+
+ /degrad @Osoba ile:1
+ dziala odwrotnie.
+
+ /rangi lista
+ pokazuje cala skonfigurowana drabinke.
+
+
+WERSJA v5 - AUTOMATYCZNE STOPNIE I LICZNIKI
+=============================================
+BOT sam probuje znalezc stopnie po nazwach:
+Cadet
+Probie Deputy
+Deputy
+Senior Deputy
+Corporal I
+Corporal II
+Sergeant
+Sergeant II
+Lieutenant
+Staff Lieutenant
+Captain
+Division Chief
+Assistant Sheriff
+
+Przyklad:
+ /awans @Osoba ile:1
+ Cadet -> Probie Deputy
+
+ /awans @Osoba ile:3
+ Corporal I -> Sergeant II
+
+ /degrad @Osoba ile:2
+ Sergeant II -> Corporal II
+
+Jesli Twoja kolejnosc jest inna, nadal mozesz uzyc /rangi dodaj i ustawic ja recznie.
+
+AUTOMATYCZNE ROLE:
+ /plus @Osoba powod
+ 1 raz -> Plus 1/3
+ 2 raz -> Plus 2/3
+ 3 raz i dalej -> Plus 3/3
+
+ /pochwala @Osoba powod
+ 1 raz -> Pochwala 1/2
+ 2 raz i dalej -> Pochwala 2/2
+
+ /minus @Osoba powod
+ 1 raz -> Minus 1/3
+ 2 raz -> Minus 2/3
+ 3 raz i dalej -> Minus 3/3
+
+ /nagana @Osoba powod
+ 1 raz -> Nagana 1/2
+ 2 raz i dalej -> Nagana 2/2
+
+Bot usuwa poprzednia role z danej kategorii i nadaje nowa.
+ /profil pokazuje ile dana osoba ma plusow, pochwal, minusow i nagan.
+
+
+WERSJA v6
+=========
+/hierarchia
+- wysyla cala hierarchie na kanal ID 1544730702459707485
+
+/ogloszenie
+- wybierasz jeden z dwoch kanalow:
+  1544036673535484101
+  1544036673380163756
+- bot automatycznie pinguje role:
+  1544036672876978291
+- ogloszenie jest wysylane jako embed
+
+Dodatkowo odpowiedzi dla plusow, minusow, pochwal, nagan, awansow itd.
+sa bardziej estetyczne.
+
+=== V7 - NAPRAWA SLASH COMMANDS ===
+Komendy sa teraz synchronizowane bezposrednio na kazdym serwerze bota, wiec /hierarchia i /ogloszenie powinny pojawic sie od razu po uruchomieniu.
+UWAGA: stary token byl widoczny na screenach. Zresetuj token w Discord Developer Portal i wklej NOWY do .env po DISCORD_TOKEN=
+
+
+WERSJA v8
+=========
+- /hierarchia ma nowy, estetyczny wygląd.
+- Bot pokazuje TYLKO prawdziwe stopnie:
+  Sheriff
+  UnderSheriff
+  Assistant Sheriff
+  Division Chief
+  Captain
+  Staff Lieutenant
+  Lieutenant
+  Sergeant II
+  Sergeant
+  Corporal II
+  Corporal I
+  Senior Deputy
+  Deputy
+  Probie Deputy
+  Cadet
+- Role typu High Command, Second Command, Command Staff, xLSPD i separatory
+  NIE są traktowane jako stopnie.
+- Hierarchia jest dzielona na sekcje High Command / Second Command / Patrol Division.
+
+
+WERSJA v9
+=========
+- Naprawiono /ogloszenie, żeby Discord nie pokazywał "Aplikacja nie reaguje".
+- Drugi kanał w /ogloszenie nazywa się teraz "Ogłoszenie Zarząd".
+- /ogloszenie odpowiada od razu i dopiero potem wysyła embed na wybrany kanał.
+- Dodano /restart.
+- /restart działa tylko dla osób z uprawnieniami administratora lub zarządzania rolami.
+- START.bat automatycznie uruchomi bota ponownie po komendzie /restart.
+
+
+=== v10 ===
+- /ogloszenie poprawione: interakcja jest potwierdzana od razu.
+- Kanały wyboru: "Ogłoszenia" i "Ogłoszenie Zarząd".
+- /ogloszenie pokazuje konkretny błąd zamiast "Aplikacja nie reaguje".
+- /restart dodany; START.bat automatycznie uruchamia bota ponownie.
+- Pełna drabinka stopni zawiera także UnderSheriff i Sheriff.
+
+
+=== v11 ===
+- Usunięto podwójne komendy slash.
+- Bot synchronizuje komendy tylko na serwerze.
+- Stare globalne kopie komend są automatycznie usuwane.
+- Po pierwszym uruchomieniu Discord może potrzebować krótkiej chwili na odświeżenie listy.
+
+
+=== v12 ===
+Kanały logów:
+- /awans -> 1544036673963167828
+- /degrad -> 1544036673963167829
+- /plus /minus /pochwala /nagana -> 1544036673963167827
+- /lota -> 1544036673963167831
+- /blacklista -> 1544036673963167832
+
+URLop:
+- /urlop działa wyłącznie na 1544036673963167834
+- automatycznie nadaje rolę 1544036672902271050
+
+Blacklista:
+- automatycznie nadaje rolę 1544885220115742851
+
+LOTA:
+- usuwa wszystkie role, którymi bot może zarządzać.
+
+Hierarchia:
+- używa wyłącznie dokładnych stopni, więc nie łapie już ról typu
+  "Sheriff Emergency Response Team" ani "Deputy Commander of PD".
+
+
+=== v13 ===
+/wypowiedzenie:
+- użytkownik podaje imię i nazwisko oraz powód,
+- bot zapisuje aktualny stopień,
+- usuwa wszystkie role, którymi może zarządzać,
+- zostawia / nadaje wyłącznie rolę 1544036672818127010,
+- wysyła estetyczny embed w kanale użycia komendy.
+
+Logi udanych komend:
+- każda zakończona sukcesem komenda jest logowana na 1544888154006364172,
+- /blacklista ma osobny publiczny log na 1544888193437007922.
+
+Blacklista:
+- publiczny kanał otrzymuje pełny, estetyczny embed z osobą, wykonawcą i powodem.
+
+
+=== v14 ===
+HIERARCHIA:
+- poprawione wykrywanie dekorowanych nazw ról,
+- uwzględnia: Sheriff, UnderSheriff, Assistant Sheriff, Asystent HC,
+  Division Chief, Captain, Staff Lieutenant, Lieutenant, Sergeant II,
+  Sergeant, Corporal II, Corporal I, Senior Deputy, Deputy, Probie Deputy, Cadet,
+- nowy, czytelniejszy układ embedów.
+
+WYPOWIEDZENIE:
+- zawsze wysyła embed na kanał 1544036673963167833.
+
+TEST AKTYWNOŚCI:
+- codziennie o 08:30 czasu Europe/Warsaw,
+- kanał 1544891662025629707,
+- bot wysyła "Test Aktywności" i dodaje reakcję 👍.
+
+ZAWIESZENIE:
+- /zawieszenie osoba powod
+- zapisuje role osoby w SQLite, zdejmuje role możliwe do zarządzania
+  i nadaje 1544036672902271051.
+- /zdjemijzawieszenie osoba
+- zdejmuje rolę zawieszenia i przywraca wcześniej zapisane role.
+
+LOGI:
+- udane komendy nadal trafiają na 1544888154006364172,
+- /blacklista ma własny publiczny log na 1544888193437007922.
+
+
+=== v15 ===
+- Dodano pakiet tzdata wymagany przez Windows do strefy czasowej Europe/Warsaw.
+- Naprawia błąd: ZoneInfoNotFoundError: No time zone found with key Europe/Warsaw.
+
+
+=== v16 ===
+- Hierarchia przebudowana w stylu z przesłanego wzoru:
+  High Command / Second Command / Patrol Division, rola -> osoby.
+- /zawieszenie i /zdjemijzawieszenie wysyłają logi na kanał:
+  1544036673963167830
+- Ujednolicony wygląd embedów dla komend:
+  /awans, /degrad, /plus, /minus, /pochwala, /nagana, /lota,
+  /blacklista, /urlop, /wypowiedzenie, /zawieszenie,
+  /zdjemijzawieszenie, /profil, /historia, /ogloszenie.
+- Potwierdzenia i logi mają bardziej czytelny styl.
+
+
+=== v17 ===
+AKTUALIZACJE BOTA:
+- przy pierwszym uruchomieniu każdej nowej wersji bot wysyła krótki changelog
+  na kanał 1544898484652744724,
+- informacja dla danej wersji jest wysyłana tylko raz.
+
+HIERARCHIA:
+- przebudowana na bardziej pionową i węższą,
+- na samej górze jest rola 1544037780156583936,
+- pod nią bot próbuje oznaczyć użytkownika celdex.30 z koroną,
+- później High Command / Second Command / Patrol Division.
+
+TICKETY:
+- bot śledzi typowe kanały ticketowe (nazwa/kategoria/topic zawierające ticket/support/closed),
+- zapisuje rozmowę w bazie,
+- po zamknięciu (np. zmiana nazwy na closed-...) lub usunięciu kanału tworzy PDF,
+- PDF trafia na 1544036673380163759.
+UWAGA: transcript może zawierać tylko wiadomości widziane przez bota od momentu,
+gdy zaczął śledzić dany kanał.
+
+
+=== v18 ===
+OGŁOSZENIA WYDZIAŁOWE
+
+Discord nie obsługuje kropki w nazwie slash-komendy, dlatego komendy działają jako:
+- /ogłoszenie iad
+- /ogłoszenie sert
+- /ogłoszenie ddu
+- /ogłoszenie ftd
+
+IAD:
+- dostęp: 1544036672868458565, 1544036672868458564
+- kanał: 1544466248656752750
+- ping: 1544446675056328704
+
+SERT:
+- dostęp: 1544036672855998642, 1544036672855998641
+- kanał: 1544464861894021170
+- ping: 1544446761878167605
+
+DDU:
+- dostęp: 1544036672868458557, 1544036672868458556
+- kanał: 1544453247400542208
+- ping: 1544446784858755102
+
+FTD:
+- dostęp: 1544036672868458561, 1544036672868458560
+- kanał: 1544449066123927723
+- ping: 1544446778630471800
+
+Każda komenda ma pola:
+- tresc
+- tytul (opcjonalny)
+
+Ogłoszenia są wysyłane jako estetyczne embedy z oznaczeniem roli i autora.
+
+
+=== v19 ===
+- Rola 1544036672893886472 może używać wszystkich ogłoszeń wydziałowych:
+  /ogłoszenie iad
+  /ogłoszenie sert
+  /ogłoszenie ddu
+  /ogłoszenie ftd
+
+Nowe przydatne komendy:
+- /status — ping, wersja i stan bota
+- /avatar osoba — pokazuje avatar
+- /userinfo osoba — informacje o użytkowniku
+
+
+=== v20 ===
+- Usunięto komendy dodane w v19:
+  /status
+  /avatar
+  /userinfo
+
+- Dodano automatyczny panel:
+  STATUS BOTA + STATUS SERWERA FIVEM
+- Kanał panelu: 1544036673380163764
+- Aktualizacja: co 5 minut
+- Panel pokazuje:
+  * czy bot jest online
+  * ping bota
+  * wersję bota
+  * czy FiveM jest online
+  * aktualną liczbę graczy
+  * maksymalną liczbę graczy, jeśli API ją zwróci
+
+- FiveM Server ID ustawiono na:
+  1431394676694323364
+
+- Rola 1544036672893886472 nadal ma dostęp do wszystkich:
+  /ogłoszenie iad
+  /ogłoszenie sert
+  /ogłoszenie ddu
+  /ogłoszenie ftd
+
+UWAGA:
+Jeżeli podany numer 1431394676694323364 nie jest identyfikatorem/join-code
+rozpoznawanym przez publiczne API FiveM/Cfx.re, panel pokaże BRAK DANYCH.
+W takim przypadku potrzebny będzie join code FiveM albo IP:PORT serwera.
+
+
+=== v21 ===
+STATUS:
+- FiveM connect: cfx.re/join/3ygoz78
+- kanał panelu: 1544036673380163764
+- odświeżanie: co 5 minut
+- pokazuje status bota, ping, wersję, status FiveM i liczbę graczy
+
+OGŁOSZENIA:
+- rola 1544036672893886472 ma globalny dostęp do:
+  /ogłoszenie iad
+  /ogłoszenie sert
+  /ogłoszenie ddu
+  /ogłoszenie ftd
+
+
+=== v22 ===
+Naprawa statusu FiveM:
+- connect: cfx.re/join/3ygoz78
+- najpierw używa nowego endpointu frontend.cfx-services.net,
+- potem starszego servers-frontend.fivem.net,
+- jeśli oba nie zadziałają, rozwiązuje cfx.re/join przez X-Citizenfx-Url,
+- następnie próbuje dynamic.json, players.json i info.json bezpośrednio na serwerze,
+- panel nadal edytuje jedną wiadomość co 5 minut na 1544036673380163764.
+
+
+=== v23 — 24/7 HOSTING ===
+Dodano:
+- Dockerfile
+- railway.toml
+- Procfile
+- HOSTING_24_7.txt
+- DATA_DIR dla trwałej bazy SQLite
+- poprawione ładowanie tokena z hostingu
+
+Szczegóły są w HOSTING_24_7.txt.
+
+
+=== v24 ===
+- Większa treść ogłoszeń (nagłówki Markdown).
+- Ogłoszenie Zarząd pinguje 1544036672893886472 i 1544036672893886468.
+- Test Aktywności naprawiony: prawdziwe nowe linie + ping 1544036672876978291.
+- Kompendium szkoleń: kanał 1544036673535484102.
+- Dokument instruktora DOCX (otwieralny w Google Docs): kanał 1544842507236544592.
+- /szkolenie nadaj i odbierz: tylko 8 dozwolonych ról.
+- Rola szkoleniowa 1544036672839090289 wymaga 1544446761878167605.
+- Automatyczne odznaki i log: 1544036673535484105.
+- Jeśli nazwy odznak nie zawierają Odznaka/Badge, ustaw w Railway BADGE_ROLE_IDS jako listę ID rozdzieloną przecinkami.
+
+
+=== v25 ===
+- /awans i /degrad synchronizują odznakę po zmianie stopnia.
+- Log odznaki: 1544036673535484105.
+- Rola 1544036672818127015 -> automatyczny degrad x1.
+- Rola 1544036672826642535 -> automatyczny awans x1.
+- Automatyczne akcje rangowe trafiają na 1544036673963167827 jako wystawione przez BOT.
+- Kompendium zostało przebudowane pod kursantów: nauka, przygotowanie, pytania, scenariusze, błędy i checklisty.
+- Jeśli pule odznak nie są wykrywane po nazwie Odznaka/Badge, ustaw BADGE_ROLE_IDS w Railway.
+
+
+=== v26 ===
+
+AUTOMATYCZNY DEGRAD:
+- trigger: 1544036672818127015
+- wykonuje degrad x1
+- log: 1544036673963167829
+- po obsłużeniu trigger jest automatycznie usuwany
+
+AUTOMATYCZNY AWANS:
+- trigger: 1544036672826642535
+- wykonuje awans x1
+- log: 1544036673963167828
+- po obsłużeniu trigger jest automatycznie usuwany
+
+SZKOLENIA:
+/szkolenie nadaj i /szkolenie odbierz przyjmują tylko:
+- 1544036672839090292
+- 1544036672839090291
+- 1544036672839090290
+- 1544036672839090289
+- 1544036672839090288
+- 1544036672839090287
+- 1544036672839090286
+- 1544036672826642541
+
+Dedykowany log nadań/odebrań szkoleń:
+1544036674399506511
+
+
+=== v27-clean — CZYSTA BAZA ===
+USUNIĘTO:
+- cały stary system kompendiów,
+- automatyczne wysyłanie starych materiałów,
+- cały stary system odznak,
+- automatyczne nadawanie/zmienianie odznak.
+
+PRZY STARCIE:
+- bot usuwa stare techniczne wpisy badge/kompendium z bot_meta,
+- próbuje usunąć stare tabele badge_assignments / badges / training_compendium, jeśli istniały.
+
+ZACHOWANO:
+- /awans i /degrad,
+- automatyczny awans/degrad z ról triggerujących,
+- /szkolenie nadaj i /szkolenie odbierz + dedykowany log,
+- ogłoszenia,
+- aktywność,
+- FiveM status,
+- ticket transcript,
+- hierarchię,
+- historię i pozostałe funkcje.
+
+Odznaki i nowe kompendium będą projektowane OD ZERA w kolejnych wersjach.

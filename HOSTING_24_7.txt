@@ -1,0 +1,48 @@
+BCSO BOT v23 — URUCHOMIENIE 24/7
+
+WAŻNE:
+Sam kod nie może działać, kiedy Twój komputer jest wyłączony.
+Bot musi działać na innym komputerze, VPS-ie albo hostingu w chmurze,
+który pozostaje włączony 24/7.
+
+NAJPROSTSZY SCHEMAT:
+1. Wgraj cały folder bota na wybrany hosting obsługujący Docker/Python.
+2. W ustawieniach hostingu dodaj zmienną środowiskową:
+   DISCORD_TOKEN = twój aktualny token bota
+
+   NIE wpisuj tokena publicznie do repozytorium.
+   NIE wrzucaj prawdziwego tokena do pliku .env na GitHub.
+
+3. Jeśli hosting oferuje trwały dysk/Volume:
+   - zamontuj go np. jako /data
+   - dodaj zmienną:
+     DATA_DIR=/data
+
+   Dzięki temu bcso.db (historia, zawieszenia, meta/status itp.)
+   nie zniknie po restarcie/redeployu.
+
+4. Start procesu:
+   python -u bot.py
+
+PLIK DOCKERFILE:
+Jest już dodany. Hosting może zbudować bota automatycznie.
+
+RAILWAY:
+Plik railway.toml jest już dodany.
+Ustaw DISCORD_TOKEN w Variables.
+Jeśli chcesz zachować bazę po deployach, dodaj Volume i ustaw DATA_DIR
+na ścieżkę tego Volume.
+
+VPS:
+Na VPS-ie możesz użyć Dockera albo uruchomić proces przez systemd.
+Najważniejsze jest, aby proces był ustawiony na automatyczny restart.
+
+CO DAJE HOSTING 24/7:
+- slash-komendy działają, nawet gdy Twój komputer jest wyłączony
+- status FiveM aktualizuje się co 5 minut
+- ogłoszenia IAD/SERT/DDU/FTD działają cały czas
+- automatyczne zadania i logi działają cały czas
+
+UWAGA O TOKENIE:
+Jeśli token kiedykolwiek był widoczny na screenie lub został komuś wysłany,
+zresetuj go w Discord Developer Portal i użyj nowego tokena.

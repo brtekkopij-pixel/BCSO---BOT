@@ -1,0 +1,5 @@
+discord.py>=2.5,<3
+python-dotenv>=1.0,<2
+tzdata>=2025.2
+reportlab>=4.2.0
+aiohttp>=3.10.0
